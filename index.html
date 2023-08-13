@@ -9,14 +9,42 @@
 </head>
 <body>
   <main>
-    <h2>Collection</h2>
-    <div class="card-container collection">
-      <!-- image cards added with JavaScript -->
+    <h2>Artwork Type Totals</h2>
+    <ul id="sum-totals">
+      <!-- Sum totals added with JS -->
+    </ul>
+    <div id="collection">
+      <h2>Collection</h2>
+      <label for="sort-collection" name="sort-collection">Sort By: </label>
+      <select name="sort-collection" id="sort-collection" class="sort-options">
+        <option value="choose..." disabled selected>Choose...</option>
+        <option value="title">Title</option>
+        <option value="artist">Artist</option>
+        <option value="artwork type">Artwork Type</option>
+        <option value="origin">Origin</option>
+      </select>
+      <button id="collection-btn" class="sort-direction-btn" data-direction="a-z">A - Z</button>
+      <button id="apply-sort-collection" class="apply-btn">Apply</button>
+      <div class="card-container collection">
+        <!-- image cards added with JS -->
+      </div>
     </div>
     
-    <h2>Favorites</h2>
-    <div class="card-container favorites">
-      <!-- image cards added with JavaScript -->
+    <div id="favorites">
+      <h2>Favorites</h2>
+      <label for="sort-favorites" name="sort-favorites">Sort By: </label>
+      <select name="sort-favorites" id="sort-favorites" class="sort-options">
+        <option value="choose..." disabled selected>Choose...</option>
+        <option value="title">Title</option>
+        <option value="artist">Artist</option>
+        <option value="artwork type">Artwork Type</option>
+        <option value="origin">Origin</option>
+      </select>
+      <button id="favorites-btn" class="sort-direction-btn" data-direction="a-z">A - Z</button>
+      <button id="apply-sort-favorites" class="apply-btn">Apply</button>
+      <div class="card-container favorites">
+        <!-- image cards added with JS -->
+      </div>
     </div>
   </main>
   <script src="./main.js"></script>
