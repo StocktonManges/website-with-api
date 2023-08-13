@@ -11,7 +11,7 @@ const artAPI = fetch('https://api.artic.edu/api/v1/artworks?ids=90334,268831,656
 let artArray;
 let iiif_url;
 let sumOfArtworkTypes = {};
-let collectionIdArr = [268831,65678,160098,244905,268830,57191,23437,148369,151348,151100,16590,4105,59779,28868,66144,90334,59882,90903,90064,94240];
+let collectionIdArr = [];
 let favoritesIdArr = [];
 let favsSortArray = [];
 let colSortArray = [];
@@ -23,12 +23,13 @@ const pullData = () => {
   .then(object => {
     artArray = object.data;
     iiif_url = object.config.iiif_url;
+    for (const obj of artArray) {
+      collectionIdArr.push(obj.id);
+    }
   })
   .catch(err => err);
 }
 
-// Adds HTML to the appropriate group containers in order to display the
-// art cards.
 const displayArtCards = (idArray, classSelector, iconStyle) => {
   for (const id of idArray) {
     for (const artObj of artArray) {
@@ -61,40 +62,36 @@ const displaySumOfArtworkTypes = () => {
   }
 }
 
-// Adds event listener to heart icons to allow marking art cards as favorites.
+// Call the functions necessary to update appropriate idArray and
+// sortArray variables once an art card switches groups.
 function toggleFavorites() {
   const iconArray = Array.from(document.querySelectorAll('.icon-wrapper'));
   for (const icon of iconArray) {
     icon.addEventListener('click', (e) => {
       const artCard = e.target.parentElement;
-      Array.from(artCard.parentElement.classList).includes('collection')
-        ? updateArtCardGroups('.favorites', artCard) 
-        : updateArtCardGroups('.collection', artCard);
+      if (artCard.parentElement.classList[1] === 'collection') {
+        updateArtCardGroups('.favorites', artCard);
+        updateIdArrays('.favorites', Number(artCard.id));
+        const option = document.getElementById('sort-favorites').value;
+        updateSortArrayData(favoritesIdArr, option, 'favorites');
+      } else {
+        updateArtCardGroups('.collection', artCard);
+        updateIdArrays('.collection', Number(artCard.id));
+        const option = document.getElementById('sort-collection').value;
+        updateSortArrayData(collectionIdArr, option, 'collection');
+      }
     })
   }
 }
 
-// Updates and resorts the sort arrays after an art card switches groups.
-function updateResortSortArrays(currSortArray, newSortArray, elmId, group) {
-  for (const array of currSortArray) {
-    if (array.includes(elmId)) {
-      currSortArray.splice(currSortArray.indexOf(array), 1);
-      newSortArray.push(array);
-      reorderSortArray(group);
-    }
-  }
-}
-
 // Updates the group arrays with the IDs of each art card they contain.
-const updateArrays = (targetContainer, elmId) => {
+const updateIdArrays = (targetContainer, elmId) => {
   if (targetContainer === '.favorites') {
     collectionIdArr.splice(collectionIdArr.indexOf(elmId), 1);
     favoritesIdArr.push(elmId);
-    updateResortSortArrays(colSortArray, favsSortArray, elmId, targetContainer);
   } else {
     favoritesIdArr.splice(favoritesIdArr.indexOf(elmId), 1);
     collectionIdArr.push(elmId);
-    updateResortSortArrays(favsSortArray, colSortArray, elmId, targetContainer);
   }
 }
 
@@ -104,7 +101,6 @@ const updateArtCardGroups = (targetContainer, elm) => {
   const classes = elm.children[2].children[0].classList;
   classes.toggle('fa-regular', targetContainer !== '.favorites');
   classes.toggle('fa-solid', targetContainer === '.favorites');
-  updateArrays(targetContainer, Number(elm.id));
 }
 
 // Takes the option from the 'select' element and returns the
@@ -216,15 +212,10 @@ const pageSetup = async () => {
   const applyButtons = Array.from(document.querySelectorAll('.apply-btn'))
   for (const button of applyButtons) {
     button.addEventListener('click', (e) => {
-      const group = e.target.parentElement.id
-      reorderSortArray(group);
-      let sortArray;
+      const group = e.target.parentElement.id;
       group === 'collection'
-        ? sortArray = colSortArray
-        : sortArray = favsSortArray;
-      for (const array of sortArray) {
-        document.querySelector(`.${group}`).appendChild(document.getElementById(array[0]));
-      }
+        ? arrangeArtCards(colSortArray, group)
+        : arrangeArtCards(favsSortArray, group);
     })
   }
 }
