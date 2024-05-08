@@ -1,53 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="./CSS/base.css">
-  <link rel="stylesheet" href="./CSS/styles.css">
-  <title>My API Website</title>
-</head>
-<body>
-  <main class="container">
-    <h2>Artwork Type Totals</h2>
-    <ul id="sum-totals">
-      <!-- Sum totals added with JS -->
-    </ul>
-    <div id="collection">
-      <h2>Collection</h2>
-      <label for="sort-collection" name="sort-collection">Sort By: </label>
-      <select name="sort-collection" id="sort-collection" class="sort-options">
-        <option value="choose..." disabled selected>Choose...</option>
-        <option value="title">Title</option>
-        <option value="artist">Artist</option>
-        <option value="artwork type">Artwork Type</option>
-        <option value="origin">Origin</option>
-      </select>
-      <button id="collection-btn" class="sort-direction-btn btn" data-direction="a-z">A - Z</button>
-      <button id="apply-sort-collection" class="apply-btn btn">Apply</button>
-      <div class="card-container collection">
-        <!-- image cards added with JS -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./CSS/base.css" />
+    <link rel="stylesheet" href="./CSS/styles.css" />
+    <title>Art Gallery API</title>
+  </head>
+  <body>
+    <main class="container">
+      <h2>Artwork Type Totals</h2>
+      <ul id="sum-totals">
+        <!-- Sum totals added with JS -->
+      </ul>
+      <div id="collection">
+        <h2>Collection</h2>
+        <label for="sort-collection" name="sort-collection">Sort By: </label>
+        <select
+          name="sort-collection"
+          id="sort-collection"
+          class="sort-options"
+        >
+          <option value="choose..." disabled selected>Choose...</option>
+          <option value="title">Title</option>
+          <option value="artist">Artist</option>
+          <option value="artwork type">Artwork Type</option>
+          <option value="origin">Origin</option>
+        </select>
+        <button
+          id="collection-btn"
+          class="sort-direction-btn btn"
+          data-direction="a-z"
+        >
+          A - Z
+        </button>
+        <button id="apply-sort-collection" class="apply-btn btn">Apply</button>
+        <div class="card-container collection">
+          <!-- image cards added with JS -->
+        </div>
       </div>
-    </div>
-    
-    <div id="favorites">
-      <h2>Favorites</h2>
-      <label for="sort-favorites" name="sort-favorites">Sort By: </label>
-      <select name="sort-favorites" id="sort-favorites" class="sort-options">
-        <option value="choose..." disabled selected>Choose...</option>
-        <option value="title">Title</option>
-        <option value="artist">Artist</option>
-        <option value="artwork type">Artwork Type</option>
-        <option value="origin">Origin</option>
-      </select>
-      <button id="favorites-btn" class="sort-direction-btn btn" data-direction="a-z">A - Z</button>
-      <button id="apply-sort-favorites" class="apply-btn btn">Apply</button>
-      <div class="card-container favorites">
-        <!-- image cards added with JS -->
+
+      <div id="favorites">
+        <h2>Favorites</h2>
+        <label for="sort-favorites" name="sort-favorites">Sort By: </label>
+        <select name="sort-favorites" id="sort-favorites" class="sort-options">
+          <option value="choose..." disabled selected>Choose...</option>
+          <option value="title">Title</option>
+          <option value="artist">Artist</option>
+          <option value="artwork type">Artwork Type</option>
+          <option value="origin">Origin</option>
+        </select>
+        <button
+          id="favorites-btn"
+          class="sort-direction-btn btn"
+          data-direction="a-z"
+        >
+          A - Z
+        </button>
+        <button id="apply-sort-favorites" class="apply-btn btn">Apply</button>
+        <div class="card-container favorites">
+          <!-- image cards added with JS -->
+        </div>
       </div>
-    </div>
-  </main>
-  <script src="./main.js"></script>
-  <script src="https://kit.fontawesome.com/02ca8f977b.js" crossorigin="anonymous"></script>
-</body>
+    </main>
+    <script src="./main.js"></script>
+    <script
+      src="https://kit.fontawesome.com/02ca8f977b.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
